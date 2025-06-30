@@ -8,6 +8,7 @@ const FRONT_PATH = 'src';
 
 export default defineConfig({
     root: 'src',
+    base: "/vite/", // название репозитория на github
 
     plugins: [
         ViteImageOptimizer({
@@ -23,6 +24,7 @@ export default defineConfig({
         }),
     ],
     build: {
+        outDir: '../build',
         minify: false,
         cssMinify: false,
         sourcemap: true,
