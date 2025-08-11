@@ -1,0 +1,63 @@
+// Цвета
+:root {
+  --font-family: 'Gotham_pro', sans-serif;
+  --black: #111311;
+  --accent1: #dd3037;
+  --black2: #212121;
+  --white: #fff;
+  --grey: #999;
+  --neon-green: 0 4px 4px 0 rgba(0, 0, 0, 0.5), 0 0 10px 0 #b6ffba;
+  --light-green: #21a038;
+  --light-green2: #b6ffba;
+  --grey2: #d9d9d9;
+}
+
+// Медиазапросы
+@mixin _1280 {
+  @media (max-width: 1280px) {
+    @content;
+  }
+}
+
+@mixin _1024 {
+  @media (max-width: 1024px) {
+    @content;
+  }
+}
+
+@mixin _880 {
+  @media (max-width: 900px) {
+    @content;
+  }
+}
+
+@mixin _640 {
+  @media (max-width: 640px) {
+    @content;
+  }
+}
+
+@mixin _550 {
+  @media (max-width: 550px) {
+    @content;
+  }
+}
+
+@mixin _450 {
+  @media (max-width: 450px) {
+    @content;
+  }
+}
+
+
+@mixin _no-hover {
+  @media screen and (any-hover: none) {
+    @content;
+  }
+}
+
+@mixin _only-hover {
+  @media screen and (any-hover: hover) {
+    @content;
+  }
+}

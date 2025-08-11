@@ -1,0 +1,12 @@
+// Ресеттер
+@use "common/reset";
+// Шрифты
+@use "common/fonts";
+//Глобальные стили
+@use "common/common";
+@use "header";
+@use "footer";
+// Переменные и миксины
+@use "common/vars";
+// Стили страниц
+@use "../pages/test/test";
