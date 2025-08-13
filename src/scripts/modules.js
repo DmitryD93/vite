@@ -6,6 +6,7 @@
 /*********************************************************************************/
 import Accordion from '@modules/accordion';
 document.addEventListener('DOMContentLoaded', () => {
+    console.log('asdasddasasdasd')
     let acc = new Accordion('.acc',{
         transition: 'height 0.3s ease',
         multiple: false

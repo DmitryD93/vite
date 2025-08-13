@@ -6,129 +6,61 @@ import autoprefixer from "autoprefixer";
 import handlebars from 'vite-plugin-handlebars';
 import {readdirSync, statSync, existsSync} from 'fs';
 
+// Функция для поиска всех .hbs файлов с сохранением структуры путей
+function findHbsPartials() {
+    const partialsMap = {};
 
-
-// Автоматическое определение директории с шаблонами hbs
-
-function findHbsDirectories() {
-    const hbsDirs = new Set();
-
-    // Сканируем pages
-    function scanPagesDirectory(currentPath = 'src/pages') {
-        if (!existsSync(resolve(__dirname, currentPath))) return;
-
-        const items = readdirSync(resolve(__dirname, currentPath));
-
-        items.forEach(item => {
-            const fullPath = join(currentPath, item);
-            const absPath = resolve(__dirname, fullPath);
-
-            if (statSync(absPath).isDirectory()) {
-                // Добавляем с префиксом 'src/'
-                hbsDirs.add('src/' + relative(resolve(__dirname, 'src'), absPath));
-                scanPagesDirectory(fullPath);
-            }
-        });
-    }
-
-    function scanPartialsDirectory(currentPath = 'src/partials') {
-        if (!existsSync(resolve(__dirname, currentPath))) return;
-
-        const items = readdirSync(resolve(__dirname, currentPath));
-
-        items.forEach(item => {
-            const fullPath = join(currentPath, item);
-            const absPath = resolve(__dirname, fullPath);
-
-            if (statSync(absPath).isDirectory()) {
-                // Добавляем с префиксом 'src/'
-                hbsDirs.add('src/' + relative(resolve(__dirname, 'src'), absPath));
-                scanPartialsDirectory(fullPath);
-            }
-        });
-    }
-
-    // Запускаем сканирование
-    scanPagesDirectory();
-    scanPartialsDirectory();
-
-    return Array.from(hbsDirs).map(dir => dir.replace(/\\/g, '/'));
-}
-
-// Для автодобавления путей в билд
-
-function findHtmlInputs(basePath = 'src/pages') {
-    const inputs = {};
-
-    function scanDirectory(currentPath, baseName = '') {
+    function scanDirectory(currentPath, basePath = '') {
         if (!existsSync(currentPath)) return;
 
         const items = readdirSync(currentPath);
-
         items.forEach(item => {
             const fullPath = join(currentPath, item);
-            const isDirectory = statSync(fullPath).isDirectory();
+            const relativePath = join(basePath, item.replace(/\.hbs$/, ''));
 
-            if (isDirectory) {
-                // Рекурсивно сканируем подпапки
-                scanDirectory(fullPath, baseName ? `${baseName}/${item}` : item);
-            } else if (item === 'index.html') {
-                // Формируем ключ на основе пути
-                const key = baseName || 'main';
-                // Возвращаем относительный путь от корня проекта
-                inputs[key] = relative(resolve(__dirname), fullPath)
-                    .replace(/\\/g, '/'); // Нормализуем разделители
+            if (statSync(fullPath).isDirectory()) {
+                scanDirectory(fullPath, relativePath);
+            } else if (item.endsWith('.hbs')) {
+                partialsMap[relativePath.replace(/\\/g, '/')] = fullPath;
             }
         });
     }
 
-    // Главная страница
-    if (existsSync(resolve(__dirname, 'src/index.html'))) {
-        inputs['main'] = 'src/index.html'; // Относительный путь
-    }
+    // Сканируем только директории с шаблонами
+    scanDirectory(resolve(__dirname, 'src/sections'));
+    scanDirectory(resolve(__dirname, 'src/partials'));
 
-    // Сканируем pages
-    scanDirectory(resolve(__dirname, basePath));
+    return partialsMap;
+}
+
+// Упрощенная функция для поиска HTML-файлов (только в корне src/)
+function findHtmlInputs() {
+    const inputs = {};
+    const root = resolve(__dirname, 'src');
+
+    if (!existsSync(root)) return inputs;
+
+    // Собираем все .html файлы в корне src/
+    readdirSync(root).forEach(item => {
+        if (item.endsWith('.html')) {
+            const name = item.replace('.html', '');
+            inputs[name] = relative(__dirname, join(root, item)).replace(/\\/g, '/');
+        }
+    });
 
     return inputs;
 }
 
-
-// обновление страницы при изменении handlebar файлов
-function HandlebarUpdate() {
-    return {
-        name: "HandlebarUpdate",
-        enforce: "post",
-        handleHotUpdate({ file, server }) {
-            if (file.endsWith(".hbs")) {
-                console.log("reloading handlebar file...");
-                server.ws.send({
-                    type: "full-reload",
-                    path: "*",
-                });
-            }
-        },
-    };
-}
-
-
-// Переменные к функциям
-const autoHbsDirs = findHbsDirectories();
+// Получаем все partials и HTML-файлы
+const hbsPartials = findHbsPartials();
 const autoPages = findHtmlInputs();
 
+console.log('Available partials:', Object.keys(hbsPartials));
+console.log('HTML inputs:', autoPages);
 
-const partDirs = [
-    'src/partials',
-    ...autoHbsDirs
-];
-
-
-// console.log('Origin:', partDirs);
-// console.log('For automation:', autoPages);
 export default defineConfig({
     root: 'src',
     base: "/vite/",
-    // publicDir: resolve(__dirname, '../public'),
     resolve: {
         alias: {
             "@": resolve(__dirname, 'src'),
@@ -140,33 +72,44 @@ export default defineConfig({
         }
     },
     css: {
+        devSourcemap: true,
         postcss: {
-            plugins: [autoprefixer(
-                {
-                    overrideBrowserslist: [
-                        'last 2 versions',
-                        '> 1%',
-                        'IE 10'
-                    ]
-                }
-            )]
+            plugins: [autoprefixer({
+                overrideBrowserslist: [
+                    'last 2 versions',
+                    '> 1%',
+                    'IE 10'
+                ]
+            })]
         }
     },
-
     plugins: [
         handlebars({
-            // context(pagePath) {
-            //     return pageData[pagePath];
-            // },
-            partialDirectory: partDirs, // шаблоны как header и footer
+            partialDirectory: [
+                'src/partials',
+                'src/sections'
+            ],
+            partials: hbsPartials,
+            // Настройки для корректной работы с вложенными partials
+            partialOptions: {
+                namespaces: {
+                    sections: 'src/sections',
+                    partials: 'src/partials'
+                }
+            },
             reloadOnPartialChange: true,
-            reload: true,
-            refresh: true,
-
+            helpers: {
+                // Хелпер для отладки
+                log: function (value) {
+                    console.log('Handlebars log:', value);
+                }
+            }
         }),
         {
-            handleHotUpdate({ file, server }) {
+            name: 'handlebar-update',
+            handleHotUpdate({file, server}) {
                 if (file.endsWith(".hbs")) {
+                    console.log("Reloading handlebar file...");
                     server.ws.send({
                         type: "full-reload",
                         path: "*",
@@ -174,36 +117,25 @@ export default defineConfig({
                 }
             },
         },
-
-
         ViteImageOptimizer({
             jpg: {quality: 75},
             png: {quality: 75}
         }),
-
         svgSprite({
-            svgFolder: resolve(__dirname, 'src/public/img/sprites'), // папка с иконками для обработки
+            svgFolder: resolve(__dirname, 'src/public/img/sprites'),
             svgSpriteConfig: {
-                // transformIndexHtmlTag: {
-                //     injectTo: 'body', // вставить в body
-                // },
                 shape: {
-                    transform: [
-                        {
-                            svgo: {
-                                plugins: [
-                                    {name: 'removeAttrs', params: {attrs: '(fill|stroke)'}} // удалить атрибуты fill и stroke
-                                ]
-                            }
+                    transform: [{
+                        svgo: {
+                            plugins: [
+                                {name: 'removeAttrs', params: {attrs: '(fill|stroke)'}}
+                            ]
                         }
-                    ],
+                    }],
                 },
             },
-
         })
     ],
-
-
     build: {
         outDir: '../build',
         minify: false,
@@ -214,20 +146,15 @@ export default defineConfig({
             input: autoPages,
         },
     },
-
     server: {
         watch: {
             ignored: ['!**/*.hbs'],
+            usePolling: true,
+            interval: 100
         },
+        hmr: {
+            overlay: false
+        },
+
     }
-
-    // test: {
-    //     globals: true,
-    //     environment: "jsdom",
-    //     coverage: {
-    //         exclude: ["node_modules/"],
-    //     },
-    // }
-
 });
-
