@@ -123,8 +123,8 @@ const partDirs = [
 ];
 
 
-console.log('Origin:', partDirs);
-console.log('For automation:', autoPages);
+// console.log('Origin:', partDirs);
+// console.log('For automation:', autoPages);
 export default defineConfig({
     root: 'src',
     base: "/vite/",
@@ -132,6 +132,11 @@ export default defineConfig({
     resolve: {
         alias: {
             "@": resolve(__dirname, 'src'),
+            "@scss": resolve(__dirname, 'src/scss'),
+            "@scripts": resolve(__dirname, 'src/scripts'),
+            "@modules": resolve(__dirname, 'src/scripts/modules'),
+            "@modules-scss": resolve(__dirname, 'src/scss/modules'),
+            "@public": resolve(__dirname, 'src/public'),
         }
     },
     css: {
@@ -196,7 +201,6 @@ export default defineConfig({
             },
 
         })
-
     ],
 
 

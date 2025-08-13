@@ -1,0 +1,34 @@
+.acc {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  width: 100%;
+  max-width: fit-content;
+  font-family: Arial, sans-serif;
+
+  &__item {
+    overflow: hidden;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+
+    &.active {
+      .acc__content {
+        height: auto;
+      }
+    }
+  }
+
+  &__content {
+    height: 0;
+    overflow: hidden;
+    transition: height 0.3s ease;
+  }
+
+  &__trigger {
+    cursor: pointer;
+    position: relative;
+    transition: background-color 0.3s ease;
+  }
+}

@@ -1,12 +1,17 @@
 // Ресеттер
-@use "common/reset";
-// Шрифты
-@use "common/fonts";
-//Глобальные стили
-@use "common/common";
-@use "header";
-@use "footer";
+@use "@scss/common/reset";
 // Переменные и миксины
-@use "common/vars";
+@use "@scss/common/vars" ;
+//Глобальные стили
+@use "@scss/common/global";
+@use "@scss/header";
+@use "@scss/footer";
+
+// Шрифты
+@use "@scss/common/fonts";
+
+//Модули
+@use "@modules-scss/accordion";
 // Стили страниц
 @use "../pages/test/test";
+

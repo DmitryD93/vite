@@ -1,15 +1,16 @@
 // Цвета
 :root {
-  --font-family: 'Gotham_pro', sans-serif;
-  --black: #111311;
-  --accent1: #dd3037;
-  --black2: #212121;
+  --source-sans: "Source Sans Pro", sans-serif;
+  --lato: "Lato", sans-serif;
+  --narrow: "Archivo Narrow", sans-serif;
+  --black: #050814;
   --white: #fff;
-  --grey: #999;
-  --neon-green: 0 4px 4px 0 rgba(0, 0, 0, 0.5), 0 0 10px 0 #b6ffba;
-  --light-green: #21a038;
-  --light-green2: #b6ffba;
-  --grey2: #d9d9d9;
+  --cold-canada: #def9fa;
+  --pale-sky: #bef3f5;
+  --freezy-breezy: #9dedf0;
+  --bath-water: #7de7eb;
+  --near-moon: #5ce1e6;
+  --aquarius: #33bbcf;
 }
 
 // Медиазапросы
@@ -50,13 +51,13 @@
 }
 
 
-@mixin _no-hover {
+@mixin no-hover {
   @media screen and (any-hover: none) {
     @content;
   }
 }
 
-@mixin _only-hover {
+@mixin only-hover {
   @media screen and (any-hover: hover) {
     @content;
   }

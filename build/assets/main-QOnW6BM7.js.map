@@ -1,1 +1,0 @@
-{"version":3,"file":"main-QOnW6BM7.js","sources":["../../src/scripts/test.js"],"sourcesContent":["document.addEventListener('DOMContentLoaded', () => {\r\n    console.log('counter');\r\n});"],"names":[],"mappings":";;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;AAAA,SAAS,iBAAiB,oBAAoB,MAAM;AAChD,UAAQ,IAAI,SAAS;AACzB,CAAC;"}
