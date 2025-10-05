@@ -12,6 +12,73 @@
 
   &__sidebar {
     grid-column: 1 span;
+
+    &-text {
+      font-weight: 400;
+      font-size: 17px;
+      line-height: 1.75;
+      color: var(--cold-canada);
+    }
+
+    &-title {
+      font-family: var(--source-sans);
+      font-weight: 800;
+      font-size: 20px;
+      line-height: 1.75;
+      color: var(--cold-canada);
+      margin-bottom: 20px;
+    }
+
+    &-list {
+      display: flex;
+      height: fit-content;
+      flex-direction: column;
+      gap: 16px;
+      font-weight: 600;
+      font-size: 18px;
+      line-height: .9;
+      color: var(--cold-canada);
+
+      &-item {
+        &-label {
+          display: flex;
+          gap: 12px;
+          align-items: center;
+
+          &-checkbox {
+            display: none;
+          }
+
+          &-checkbox:checked + &-custom-checkbox {
+            svg {
+              opacity: 1;
+            }
+          }
+
+          &-custom-checkbox {
+            position: relative;
+            display: block;
+            height: 32px;
+            width: 32px;
+            border-radius: 6px;
+            border: 1px solid var(--cold-canada);
+
+            svg {
+              opacity: 0;
+              width: 25px;
+              height: 25px;
+              position: absolute;
+              top: 50%;
+              left: 50%;
+              transform: translate(-50%, -50%);
+              fill: var(--cold-canada);
+              transition: opacity .3s ease;
+            }
+          }
+        }
+
+      }
+    }
   }
 
   &__search-label {
@@ -25,8 +92,8 @@
     border-radius: 60px;
     border: inherit;
     outline: inherit;
-    background: -webkit-linear-gradient(90deg, #9c8fa3, #987ba3, #270533); /* Chrome 10-25, Safari 5.1-6 */
-    background: linear-gradient(90deg, #9c8fa3, #987ba3, #270533); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    background: -webkit-linear-gradient(90deg, #6a626f, #322636, #1a121c); /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(90deg, #6a626f, #322636, #1a121c); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
     &::placeholder {
       color: var(--cold-canada);
       font-style: italic;
