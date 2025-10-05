@@ -27,7 +27,7 @@ function findHbsPartials() {
     }
 
     // Сканируем только директории с шаблонами
-    scanDirectory(resolve(__dirname, 'src/sections'));
+    scanDirectory(resolve(__dirname, 'src/pages'));
     scanDirectory(resolve(__dirname, 'src/partials'));
 
     return partialsMap;
@@ -87,13 +87,13 @@ export default defineConfig({
         handlebars({
             partialDirectory: [
                 'src/partials',
-                'src/sections'
+                'src/pages'
             ],
             partials: hbsPartials,
             // Настройки для корректной работы с вложенными partials
             partialOptions: {
                 namespaces: {
-                    sections: 'src/sections',
+                    sections: 'src/pages',
                     partials: 'src/partials'
                 }
             },
@@ -106,10 +106,10 @@ export default defineConfig({
             }
         }),
         {
-            name: 'handlebar-update',
-            handleHotUpdate({file, server}) {
-                if (file.endsWith(".hbs")) {
-                    console.log("Reloading handlebar file...");
+            name: 'template-update',
+            handleHotUpdate({ file, server }) {
+                if (file.endsWith(".hbs") || file.endsWith(".html")) {
+                    console.log("Reloading template file:", file);
                     server.ws.send({
                         type: "full-reload",
                         path: "*",

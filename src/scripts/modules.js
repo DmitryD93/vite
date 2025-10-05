@@ -5,10 +5,9 @@
 // В класс вы можете передать параметры - селектор аккордеона в вашем DOM и опции
 /*********************************************************************************/
 import Accordion from '@modules/accordion';
-document.addEventListener('DOMContentLoaded', () => {
-    console.log('asdasddasasdasd')
-    let acc = new Accordion('.acc',{
-        transition: 'height 0.3s ease',
-        multiple: false
-    });
-});
+// document.addEventListener('DOMContentLoaded', () => {
+//     let acc = new Accordion('.acc',{
+//         transition: 'height 0.3s ease',
+//         multiple: false
+//     });
+// });

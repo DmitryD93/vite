@@ -38,6 +38,7 @@ body {
   width: 100%;
   max-width: 1440px;
 }
+
 .main {
   position: relative;
   display: flex;
@@ -62,4 +63,20 @@ ul {
 a {
   text-decoration: none;
   color: inherit;
+}
+
+.title {
+  font-family: var(--narrow);
+  color: var(--near-moon);
+}
+
+.h1 {
+  font-weight: 600;
+  font-size: 35px;
+}
+
+img {
+  display: block;
+  width: 100%;
+  height: auto;
 }
