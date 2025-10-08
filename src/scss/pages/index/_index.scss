@@ -38,12 +38,14 @@
       font-size: 18px;
       line-height: .9;
       color: var(--cold-canada);
+      margin-bottom: 16px;
 
       &-item {
         &-label {
           display: flex;
           gap: 12px;
           align-items: center;
+          cursor: pointer;
 
           &-checkbox {
             display: none;
@@ -79,6 +81,25 @@
 
       }
     }
+
+    &-button {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      background: none;
+      border: none;
+      color: var(--cold-canada);
+      cursor: pointer;
+      font-weight: 400;
+      font-size: 16px;
+      line-height: 1.91;
+
+      svg {
+        width: 16px;
+        height: 16px;
+        fill: var(--cold-canada);
+      }
+    }
   }
 
   &__search-label {
@@ -92,8 +113,14 @@
     border-radius: 60px;
     border: inherit;
     outline: inherit;
-    background: -webkit-linear-gradient(90deg, #6a626f, #322636, #1a121c); /* Chrome 10-25, Safari 5.1-6 */
-    background: linear-gradient(90deg, #6a626f, #322636, #1a121c); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    background: linear-gradient(135deg,
+            #0f172a 0%,
+            #1e293b 30%,
+            #334155 60%,
+            #475569 80%,
+            #64748b 100%);
+    color: var(--cold-canada);
+
     &::placeholder {
       color: var(--cold-canada);
       font-style: italic;
@@ -116,6 +143,7 @@
     width: 35px;
     height: 35px;
 
+
     svg {
       fill: var(--cold-canada);
     }
@@ -126,5 +154,57 @@
     grid-column: 3 span;
     grid-template-columns: repeat(2, 1fr);
     gap: 40px;
+
+    &-item {
+      border-radius: 6px;
+      background: linear-gradient(135deg,
+              #0f172a 0%,
+              #1e293b 30%,
+              #334155 60%,
+              #475569 80%,
+              #64748b 100%);
+      background-size: 200% 200%;
+      animation: gradientRotate 11s ease-in-out infinite;
+
+
+      &-content {
+        padding: 10px;
+
+        &-list {
+          display: flex;
+          gap: 8px;
+
+          &-item {
+            color: var(--cold-canada);
+            font-family: var(--lato);
+            font-weight: 500;
+            font-size: 12px;
+            padding: 6px 8px;
+            border-radius: 28px;
+            border: 1px solid var(--cold-canada);
+          }
+        }
+
+        &-descr {
+          font-family: var(--lato);
+          color: var(--freezy-breezy);
+          font-weight: 600;
+          font-size: 24px;
+          line-height: 1.3;
+        }
+      }
+    }
+
+
   }
+
+
+}
+
+@keyframes gradientRotate {
+  0% { background-position: 0% 0%; }
+  25% { background-position: 100% 0%; }
+  50% { background-position: 100% 100%; }
+  75% { background-position: 0% 100%; }
+  100% { background-position: 0% 0%; }
 }
