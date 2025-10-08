@@ -80,7 +80,7 @@ window.addEventListener('load',() => {
                 end: '+=80%',
                 pin: true,
                 scrub: true,
-                markers: true,
+                markers: false,
             },
         })
         .to('.space-anima__image', {
