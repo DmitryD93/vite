@@ -67,6 +67,7 @@ export default defineConfig({
             "@scss": resolve(__dirname, 'src/scss'),
             "@scripts": resolve(__dirname, 'src/scripts'),
             "@modules": resolve(__dirname, 'src/scripts/modules'),
+            "@animations": resolve(__dirname, 'src/scripts/animations'),
             "@modules-scss": resolve(__dirname, 'src/scss/modules'),
             "@public": resolve(__dirname, 'src/public'),
         }

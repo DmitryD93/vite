@@ -4,7 +4,8 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 20px 0;
+    padding: 20px;
+
   }
 
   &__nav {
@@ -21,6 +22,18 @@
   width: 100vw;
   position: relative;
   z-index: 1;
+
+  &__content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  &__title {
+    font-size: 60px;
+    color: var(--white);
+  }
 }
 .space-image-container {
   width: 100%;
@@ -33,9 +46,6 @@
   perspective: 500px;
   overflow: hidden;
 
-  img {
-
-  }
 }
 
 .space-anima__image {
@@ -43,13 +53,5 @@
   height: 100%;
   object-fit: cover;
   object-position: center center;
-}
-
-.space-wrapper__content {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  background: red;
 }
 
