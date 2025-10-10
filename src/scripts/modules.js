@@ -23,7 +23,7 @@ gsap.registerPlugin(ScrollTrigger)
 
 window.addEventListener('load',() => {
     gsap.set('.space-anima__image', {
-        filter: 'brightness(0.3) saturate(0.3)'
+        filter: 'brightness(0.4) saturate(0.4)'
     });
     gsap
         .timeline({
@@ -37,7 +37,7 @@ window.addEventListener('load',() => {
             },
         })
         .to('.space-anima__image', {
-            scale: 1.3,
+            scale: 1.2,
             z: 200,
             transformOrigin: 'center center',
             ease: 'power1.inOut',
