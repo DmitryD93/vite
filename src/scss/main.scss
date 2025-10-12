@@ -2,6 +2,7 @@
 @use "@scss/common/reset";
 // Переменные и миксины
 @use "@scss/common/vars" ;
+@use "@scss/common/mixins" ;
 //Глобальные стили
 @use "@scss/common/global";
 @use "@scss/header";

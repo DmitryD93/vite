@@ -1,5 +1,78 @@
+@use "@scss/common/mixins" as *;
+
+
 .header {
   margin-top: calc(180dvh + 10px);
+  z-index: 10;
+
+  &-burger {
+    width: 40px;
+    height: 30px;
+    position: relative;
+    cursor: pointer;
+    display: none;
+
+    @include v640 {
+      display: block;
+    }
+
+    &.active {
+      .header-burger__line {
+        &:nth-child(1) {
+          opacity: 0;
+        }
+
+        &:nth-child(2) {
+          top: 15px;
+          transform: translateY(0) rotate(-45deg);
+        }
+
+        &:nth-child(3) {
+          transform: translateY(-10px) rotate(45deg);
+        }
+      }
+    }
+
+
+    &__line {
+      position: absolute;
+      width: 100%;
+      height: 4px;
+      background: var(--white);
+      border-radius: 4px;
+      transition: transform .4s ease;
+
+      &:nth-child(1) {
+        top: 0;
+        right: 0;
+        width: 50%;
+        transform: translateY(0);
+        transition: .3s ease;
+      }
+
+      &:nth-child(2) {
+        top: 13px;
+        left: 0;
+        transition: .3s ease;
+      }
+
+      &:nth-child(3) {
+        left: 0;
+        bottom: 0;
+        transform: translateY(0);
+        transition: .3s ease;
+      }
+    }
+  }
+
+  &__logo {
+    @include v1024 {
+      max-width: 50px;
+      max-height: 50px;
+    }
+
+  }
+
   &__container {
     display: flex;
     align-items: center;
@@ -9,11 +82,46 @@
   }
 
   &__nav {
+    display: flex;
+    position: relative;
+    gap: 8px;
     color: var(--cold-canada);
+    font-weight: 600;
+    font-size: 18px;
+    line-height: 1.91;
+
+    @include v1024 {
+      font-size: 16px;
+    }
+
+    @include v640 {
+      flex-direction: column;
+    }
+
     &-list {
       display: flex;
       align-items: center;
       gap: 20px;
+
+      @include v640 {
+        flex-direction: column;
+        width: 100dvw;
+        height: fit-content;
+        gap: 12px;
+        position: absolute;
+        top: 40px;
+        right: -20px;
+        z-index: -1;
+        opacity: 0;
+        transition: opacity .3s ease;
+        background: linear-gradient(135deg, #0f172a 0%, #1e293b 30%, #334155 60%, #475569 80%, #64748b 100%);;
+
+        &.active {
+          opacity: 1;
+          z-index: 10;
+        }
+      }
+
     }
   }
 }
@@ -31,22 +139,27 @@
   }
 
   &__title {
-    font-size: 60px;
+    font-size: 50px;
     color: var(--white);
+
+    @include v1024 {
+      font-size: 36px;
+    }
+  }
+
+  &__container {
+    width: 100%;
+    height: 100vh;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 10;
+    perspective: 500px;
+    overflow: hidden;
   }
 }
-.space-image-container {
-  width: 100%;
-  height: 100vh;
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  z-index: 10;
-  perspective: 500px;
-  overflow: hidden;
 
-}
 
 .space-anima__image {
   width: 100%;

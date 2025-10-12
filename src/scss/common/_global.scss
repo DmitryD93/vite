@@ -1,4 +1,4 @@
-@use "@scss/common/vars" as *;
+@use "@scss/common/mixins" as *;
 
 html {
   display: flex;
@@ -72,7 +72,16 @@ a {
 
 .h1 {
   font-weight: 600;
-  font-size: 35px;
+  font-size: 34px;
+
+  @include v1024 {
+    font-size: 28px;
+  }
+
+  //@include _1024 {
+  //  font-weight: 600;
+  //  font-size: 28px;
+  //}
 }
 
 img {

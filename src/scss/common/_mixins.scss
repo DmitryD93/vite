@@ -1,0 +1,41 @@
+// Медиазапросы
+
+
+@mixin v1024 {
+  @media (max-width: 1024px) {
+    @content;
+  }
+}
+
+@mixin v640 {
+  @media (max-width: 640px) {
+    @content;
+  }
+}
+
+
+
+@mixin v420 {
+  @media (max-width: 420px) {
+    @content;
+  }
+}
+
+@mixin v450 {
+  @media (max-width: 450px) {
+    @content;
+  }
+}
+
+
+@mixin no-hover {
+  @media screen and (any-hover: none) {
+    @content;
+  }
+}
+
+@mixin only-hover {
+  @media screen and (any-hover: hover) {
+    @content;
+  }
+}
