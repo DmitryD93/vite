@@ -337,8 +337,8 @@ window.addEventListener('load',() => {
         ease: "power2.out",
         scrollTrigger: {
             trigger: '.footer',
-            start: 'top 80%',
-            end: 'bottom 20%',
+            start: 'top 75%',
+            end: 'bottom 25%',
             toggleActions: "play none none reverse",
             markers: false
         }
