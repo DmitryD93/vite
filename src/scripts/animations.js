@@ -295,8 +295,8 @@ window.addEventListener('load',() => {
             ease: "power2.out",
             scrollTrigger: {
                 trigger: item,
-                start: 'top 80%',
-                end: 'bottom 20%',
+                start: 'top 85%',
+                end: 'bottom 15%',
                 toggleActions: "play none none reverse",
                 markers: false
             }
@@ -318,6 +318,27 @@ window.addEventListener('load',() => {
             trigger: '.main-hero__sidebar',
             start: 'top 85%',
             end: 'bottom 15%',
+            toggleActions: "play none none reverse",
+            markers: false
+        }
+    });
+
+
+    //********** Анимация футера **********//
+    gsap.set('.footer', {
+        opacity: 0,
+        y: -100
+    });
+
+    gsap.to('.footer', {
+        y: 0,
+        opacity: 1,
+        duration: 1.2,
+        ease: "power2.out",
+        scrollTrigger: {
+            trigger: '.footer',
+            start: 'top 80%',
+            end: 'bottom 20%',
             toggleActions: "play none none reverse",
             markers: false
         }
