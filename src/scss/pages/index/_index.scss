@@ -19,6 +19,7 @@
     display: grid;
     gap: 20px;
     grid-template-columns: repeat(4, 1fr);
+    align-items: start;
 
     @include v1024 {
       display: flex;
@@ -29,6 +30,29 @@
 
   &__sidebar {
     grid-column: 1 span;
+    top: 20px;
+    position: sticky;
+    max-height: calc(100vh - 40px); // Максимальная высота
+    overflow-y: auto; // Скролл если контент слишком длинный
+    background: var(--black);
+    z-index: 3;
+
+    @include v1024 {
+      padding-top: 20px;
+      top: 0;
+    }
+    &::-webkit-scrollbar {
+      width: 4px;
+    }
+
+    &::-webkit-scrollbar-track {
+      background: transparent;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background: var(--cold-canada);
+      border-radius: 2px;
+    }
 
     &-text {
       font-weight: 400;
